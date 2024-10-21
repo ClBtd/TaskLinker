@@ -34,12 +34,19 @@ class Employee
     /**
      * @var Collection<int, Task>
      */
-    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'id_employee')]
+    #[ORM\OneToMany(targetEntity: Task::class, mappedBy: 'employee')]
     private Collection $tasks;
+
+    /**
+     * @var Collection<int, Project>
+     */
+    #[ORM\ManyToMany(targetEntity: Project::class, mappedBy: 'employee')]
+    private Collection $projects;
 
     public function __construct()
     {
         $this->tasks = new ArrayCollection();
+        $this->projects = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -119,7 +126,7 @@ class Employee
     {
         if (!$this->tasks->contains($task)) {
             $this->tasks->add($task);
-            $task->setIdEmployee($this);
+            $task->setEmployee($this);
         }
 
         return $this;
@@ -129,9 +136,36 @@ class Employee
     {
         if ($this->tasks->removeElement($task)) {
             // set the owning side to null (unless already changed)
-            if ($task->getIdEmployee() === $this) {
-                $task->setIdEmployee(null);
+            if ($task->getEmployee() === $this) {
+                $task->setEmployee(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Project>
+     */
+    public function getProjects(): Collection
+    {
+        return $this->projects;
+    }
+
+    public function addProject(Project $project): static
+    {
+        if (!$this->projects->contains($project)) {
+            $this->projects->add($project);
+            $project->addEmployee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeProject(Project $project): static
+    {
+        if ($this->projects->removeElement($project)) {
+            $project->removeEmployee($this);
         }
 
         return $this;

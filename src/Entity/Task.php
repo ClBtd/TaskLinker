@@ -21,11 +21,11 @@ class Task
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $deadline = null;
+    #[ORM\Column]
+    private ?\DateTimeImmutable $deadline = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
-    private ?Employee $id_employee = null;
+    private ?Employee $employee = null;
 
     #[ORM\ManyToOne(inversedBy: 'tasks')]
     #[ORM\JoinColumn(nullable: false)]
@@ -75,14 +75,14 @@ class Task
         return $this;
     }
 
-    public function getIdEmployee(): ?Employee
+    public function getEmployee(): ?Employee
     {
-        return $this->id_employee;
+        return $this->employee;
     }
 
-    public function setIdEmployee(?Employee $id_employee): static
+    public function setEmployee(?Employee $employee): static
     {
-        $this->id_employee = $id_employee;
+        $this->employee = $employee;
 
         return $this;
     }
