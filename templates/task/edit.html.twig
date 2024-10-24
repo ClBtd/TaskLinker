@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{task.name}} - TaskLinker{% endblock %}
+
+{% block titlePage %}
+    <h1>{{task.name}}</h1>
+{% endblock %}
+
+{% block body %}
+
+    <div id="content">
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+            <button type="submit" class="button button-submit">Modifier</button>
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}

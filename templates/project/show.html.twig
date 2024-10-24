@@ -1,0 +1,105 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{project.name}} - TaskLinker{% endblock %}
+
+{% block titlePage %}
+    <div class="flex-header">
+        <h1>{{project.name}}</h1>
+        <div class="user-list">
+            {% for employee in project.employee %}
+                <div class="avatar">{{ employee.firstName|slice(0, 1) }}{{ employee.lastName|slice(0, 1) }}</div>
+            {% endfor %}
+        </div>
+        <a class="button" href="{{ path('app_project_edit', {id: project.id}) }}">Modifier</a>
+    </div>
+{% endblock %}
+
+{% block body %}
+
+<div id="content">
+    <div id="tasks-container">
+        <div class="task-column">        
+          <h2>To Do</h2>
+            <div class="tasks-list">
+                {% for task in project.tasks %}
+                    {% if task.status.value == 'to do' %}
+                        <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                            <h3>{{task.name}}</h3>
+                            <p>{{task.description}}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                </div>
+                                {% if task.employee %}
+                                    <div class="mini-user">
+                                        {{task.employee.firstName|slice(0, 1)}}
+                                        {{task.employee.lastName|slice(0, 1)}}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}        
+                <a href="{{ path('app_task_new', {id: project.id, status: 'to do'}) }}" class="task-add">
+                    + Ajouter une tâche
+                </a>
+            </div>
+        </div>
+        <div class="task-column">        
+            <h2>Doing</h2>
+            <div class="tasks-list">
+                {% for task in project.tasks %}
+                    {% if task.status.value == 'doing' %}
+                        <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                            <h3>{{task.name}}</h3>
+                            <p>{{task.description}}</p>
+                            <div class="task-infos">
+                                <div class="task-deadline">
+                                    <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                </div>
+                                {% if task.employee %}
+                                    <div class="mini-user">
+                                        {{task.employee.firstName|slice(0, 1)}}
+                                        {{task.employee.lastName|slice(0, 1)}}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endif %}
+                {% endfor %}        
+                <a href="{{ path('app_task_new', {id: project.id, status: 'doing'}) }}" class="task-add">
+                    + Ajouter une tâche
+                </a>
+            </div>
+        </div>
+        <div class="task-column">        
+            <h2>Done</h2>
+              <div class="tasks-list">
+                  {% for task in project.tasks %}
+                      {% if task.status.value == 'done' %}
+                          <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                              <h3>{{task.name}}</h3>
+                              <p>{{task.description}}</p>
+                              <div class="task-infos">
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                    </div>
+                                    {% if task.employee %}
+                                        <div class="mini-user">
+                                            {{task.employee.firstName|slice(0, 1)}}
+                                            {{task.employee.lastName|slice(0, 1)}}
+                                        </div>
+                                    {% endif %}
+                              </div>
+                          </a>
+                        {% endif %}
+                    {% endfor %}        
+                    <a href="{{ path('app_task_new', {id: project.id, status: 'done'}) }}" class="task-add">
+                        + Ajouter une tâche
+                    </a>
+                </div>
+          </div>
+    </div>
+ </div>
+
+{% endblock %}
