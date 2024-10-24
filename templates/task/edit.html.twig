@@ -11,7 +11,12 @@
     <div id="content">
         {{ form_start(form) }}
         {{ form_widget(form) }}
-            <button type="submit" class="button button-submit">Modifier</button>
+            {% if task.id %}
+                <button type="submit" class="button button-submit">Modifier</button>
+                <a href="{{ path('app_task_delete', {id: task.id}) }}" class="delete-task">Supprimer la tâche</a>
+            {% else %}
+                <button type="submit" class="button button-submit">Ajouter</button>
+            {% endif %}
         {{ form_end(form) }}
     </div>
 

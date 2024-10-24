@@ -24,7 +24,7 @@ class TaskController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $em->persist($task);
             $em->flush();
-            return $this->redirectToRoute('app_project', ['id' => $task->getProject()->getId()]);;
+            return $this->redirectToRoute('app_project_show', ['id' => $task->getProject()->getId()]);;
         }
 
         return $this->render('task/edit.html.twig', [
@@ -43,14 +43,33 @@ class TaskController extends AbstractController
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($task->getEmployee()) {
+                $project->addEmployee($task->getEmployee());
+            }
+            
             $em->persist($task);
             $em->flush();
-            return $this->redirectToRoute('app_project', ['id' => $project->getId()]);;
+
+            return $this->redirectToRoute('app_project_show', ['id' => $project->getId()]);;
         }
 
         return $this->render('task/edit.html.twig', [
             'task' => $task,
             'form' => $form
         ]);
+    }
+
+    #[Route('/{id}/delete', name: '_delete', requirements: ['id' => '\d+'])]
+    public function delete(Task $task, EntityManagerInterface $em): Response
+    {
+        if ($task->getEmployee()) {
+            $task->getProject()->removeEmployee($task->getEmployee());
+        }
+        
+        $em->remove($task);
+        $em->flush();
+        
+        return $this->redirectToRoute('app_project_show', ['id' => $task->getProject()->getId()]);
     }
 }

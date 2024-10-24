@@ -1,20 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello EmployeeController!{% endblock %}
+{% block title %}Liste des employés - TaskLinker{% endblock %}
+
+{% block titlePage %}
+    <h1>Équipe</h1>
+{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
-
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/Users/clementinebertrand/TaskLinker/src/Controller/EmployeeController.php</code></li>
-        <li>Your template at <code>/Users/clementinebertrand/TaskLinker/templates/employee/index.html.twig</code></li>
-    </ul>
-</div>
+<div id="content">
+    <table id="team-container">
+       <thead>
+          <tr>
+             <th>Prénom, Nom</th>
+             <th>Statut</th>
+             <th>Actions</th>
+          </tr>
+       </thead>
+       <tbody>
+            {% for employee in employees %}
+            <tr>
+             <td>
+                <div class="employee-infos">
+                   <div class="employee-avatar">
+                        {{ employee.firstName|slice(0, 1) }}{{ employee.lastName|slice(0, 1) }}
+                   </div>
+                   <div class="employee-coords">
+                      <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
+                      <span>{{ employee.email }}</span>
+                   </div>
+                </div>
+             </td>
+             <td>{{ employee.status.value }}</td>
+             <td>
+                <a class="button button-edit-team" href="{{ path('app_employee_edit', {id: employee.id}) }}">
+                Éditer
+                </a>
+                <a class="delete-team" href="{{ path('app_employee_delete', {id: employee.id}) }}">
+                Supprimer
+                </a>
+             </td>
+          </tr>
+          {% endfor %}
+       </tbody>
+    </table>
+ </div>
 {% endblock %}

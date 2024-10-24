@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Project;
+use App\Enum\TaskStatus;
 use App\Form\ProjectType;
 use App\Repository\ProjectRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -45,7 +46,7 @@ class ProjectController extends AbstractController
             $project->setArchive(false);
             $em->persist($project);
             $em->flush();
-            return $this->redirectToRoute('app_project', ['id' => $project->getId()]);;
+            return $this->redirectToRoute('app_project_show', ['id' => $project->getId()]);;
         }
 
         return $this->render('project/edit.html.twig', [
@@ -58,6 +59,9 @@ class ProjectController extends AbstractController
     public function archive(Project $project, EntityManagerInterface $em): Response
     {
         $project->setArchive(true);
+        foreach ($project->getTasks() as $task) {
+            $project->removeTask($task);
+        }
         $em->flush();
         return $this->redirectToRoute('app_project');
     }

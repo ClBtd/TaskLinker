@@ -26,7 +26,7 @@ class TaskType extends AbstractType
                 'required' => false,
                 'label' => 'Description'
             ])
-            ->add('deadline', DateType::class, [
+            ->add('deadline', null, [
                 'widget' => 'single_text',
                 'required' => false,
                 'label' => 'Date',

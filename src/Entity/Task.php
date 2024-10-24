@@ -91,6 +91,11 @@ class Task
         return $this;
     }
 
+    public function removeEmployee ()
+    {
+        return $this->employee = null;
+    }
+
     public function getProject(): ?Project
     {
         return $this->project;
