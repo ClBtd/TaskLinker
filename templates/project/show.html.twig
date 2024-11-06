@@ -55,7 +55,9 @@
                             <p>{{task.description}}</p>
                             <div class="task-infos">
                                 <div class="task-deadline">
+                                    {% if task.deadline %}
                                     <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                    {% endif %}
                                 </div>
                                 {% if task.employee %}
                                     <div class="mini-user">

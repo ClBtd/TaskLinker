@@ -7,7 +7,11 @@
 {% endblock %}
 
 {% block body %}
-
+<script>
+    $(document).ready(function() {
+    $('select[multiple]').select2();
+});
+</script>
     <div id="content">
         {{ form_start(form) }}
         {{ form_widget(form) }}
