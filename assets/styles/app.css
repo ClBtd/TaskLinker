@@ -487,6 +487,59 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     font-size: 16px;
 }
 
+.login-container {
+    background-image: url('/img/login_background.jpg');
+    background-size: cover;
+    background-position: center;
+    padding-bottom: 100px;
+}
+
+.login-logo {
+    padding: 50px;
+}
+
+.login-container #logo {
+    width: fit-content;
+    text-align: left;
+}
+
+.login-container #logo img {
+    margin: 0;
+}
+
+.login {
+    width: 50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    background-color: #4D8077;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 30px;
+}
+
+.login h1 {
+    margin: 50px 0;
+}
+
+.login-form label {
+    text-align: left;
+    color: white;
+    padding: 10px 0;
+}
+
+#registartion {
+    padding-bottom: 30px;
+}
+
+ .login a {
+    color: white;
+    text-decoration: none;
+    padding: 24px 0 44px 0;
+ }
+
 @media (max-width: 992px) {
     nav {
         width: 150px;
@@ -505,6 +558,16 @@ form .select2-container--default .select2-selection--multiple .select2-selection
 
     div#content {
         padding: 30px;
+    }
+
+    .login-container {
+        padding-bottom: 0;
+    }
+
+    .login {
+        width: 100%;
+        margin: 0;
+        border-radius: 0;
     }
 }
 

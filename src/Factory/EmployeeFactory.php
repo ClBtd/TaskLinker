@@ -19,7 +19,7 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     public function __construct()
     {
     }
-
+    
     public static function class(): string
     {
         return Employee::class;
@@ -33,11 +33,12 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     protected function defaults(): array|callable
     {
         return [
-            'email' => self::faker()->unique()->safeEmail(),
-            'fisrtName' => self::faker()->firstName($gender = 'male'|'female'),
+            'firstName' => self::faker()->firstName($gender = 'male'|'female'),
             'lastName' => self::faker()->unique()->lastName(),
             'startedAt' => \DateTimeImmutable::createFromMutable(self::faker()->dateTimeThisDecade()),
             'status' => self::faker()->randomElement(EmployeeStatus::cases()),
+            'roles' => ['ROLE_USER'],
+            'password' => password_hash('password', PASSWORD_BCRYPT)
         ];
     }
 
@@ -47,7 +48,8 @@ final class EmployeeFactory extends PersistentProxyObjectFactory
     protected function initialize(): static
     {
         return $this
-            // ->afterInstantiate(function(Employee $employee): void {})
-        ;
+        ->afterInstantiate(function(Employee $employee): void {
+            $employee->setEmail(strtolower($employee->getFirstName() . '.' . $employee->getLastName()) . '@example.com');
+        });
     }
 }

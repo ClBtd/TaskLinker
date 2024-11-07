@@ -19,34 +19,5 @@
             {% block importmap %}{{ importmap('app') }}{% endblock %}
         {% endblock %}
     </head>
-    <body>
-        <div id="main-container">
-            <nav>
-               <a href="{{url('app_project')}}" id="logo">
-               <img src="{{ asset('img/logo.png') }}" alt="Logo TaskLinker" />
-               </a>
-               <ul id="main-menu">
-                  <li class="{{app.current_route == 'app_project' ? 'active' : ''}}">
-                     <a href="{{url('app_project')}}">
-                     <i class="fa-solid fa-list-check"></i> Projets
-                     </a>
-                  </li>
-                  <li class="{{app.current_route == 'app_employee' ? 'active' : ''}}">
-                     <a href="{{url('app_employee')}}">
-                     <i class="fa-regular fa-user"></i> Équipe
-                     </a>
-                  </li>
-               </ul>
-            </nav>
-            <main>
-               <header>
-                  <div id="current-user"></div>
-                  <div id="title-page">
-                    {% block titlePage %}{% endblock %}
-                  </div>
-               </header>
-                {% block body %}{% endblock %}
-            </main>
-        </div>
-    </body>
+    {% block body %} {% endblock %}
 </html>

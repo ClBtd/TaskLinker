@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<div class="login-container">
+
+    <div class="login-logo">
+    <a href="{{url('app_project')}}" id="logo">
+        <img src="{{ asset('img/logo.png') }}" alt="Logo TaskLinker" />
+    </a>
+    </div>
+
+    {% block content %} {% endblock %}
+
+</div>
+
+{% endblock %}

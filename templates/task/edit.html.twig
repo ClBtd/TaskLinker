@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'homepage.html.twig' %}
 
 {% block title %}{{task.name}} - TaskLinker{% endblock %}
 
@@ -6,7 +6,7 @@
     <h1>{{task.name}}</h1>
 {% endblock %}
 
-{% block body %}
+{% block content %}
 
     <div id="content">
         {{ form_start(form) }}
