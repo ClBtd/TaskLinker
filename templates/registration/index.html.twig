@@ -1,21 +1,29 @@
 {% extends 'registrationpages.html.twig' %}
 
-{% block title %}S'inscrire - TaskLinker{% endblock %}
+{% block title %}Bienvenue - TaskLinker{% endblock %}
 
 {% block content %}
 
-    <div class="login">
-        <h1>S'inscrire</h1>
+    <h1>Bienvenue sur TaskLinker</h1>
 
-        <div class="login-form">
-            {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="button button-submit">Enregistrer</button>
-            {{ form_end(form) }}
-        </div>
+    <h2>Commencez dès maintenant - gratuitement</h2>
 
-        <a href="#">Vous avez déjà un compte ?</a>
+    <p>Vous avez déjà un compte ?</p>
 
+    <a href="">
+        <button class="button button-submit button-login">Se connecter</button>
+    </a>
+    
+    <div class="separator">
+        <div class="line"></div>
+        <p>ou</p>
+        <div class="line"></div>
     </div>
+
+    <a href="{{ path('app_registration_new') }}">
+        <button class="button button-register">S'inscrire</button>
+    </a>
+
+
 
 {% endblock %}
