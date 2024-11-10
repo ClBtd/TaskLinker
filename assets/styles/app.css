@@ -79,13 +79,27 @@ ul#main-menu i {
 }
 
 header {
+    display: flex;
+    flex-direction: column;
     background: #4D8077;
     height: 155px;
     padding: 30px 80px 10px 80px;
 }
 
-div#current-user {
-    height: 55px;
+#current-user {
+    align-self: flex-end;
+    font-size: 18px;
+    font-weight: 700;
+    text-align: center;
+    background-color: white;
+    border-radius: 50%;
+    width: fit-content;
+    padding: 10px;
+}
+
+#current-user a {
+    text-decoration: none;
+    color: #1C5B50;
 }
 
 div#title-page h1 {
@@ -492,6 +506,7 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     background-size: cover;
     background-position: center;
     padding-bottom: 100px;
+    min-height: 100vh;
 }
 
 .login-logo {
@@ -520,12 +535,18 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     border-radius: 30px;
 }
 
+.login a {
+    text-decoration: none;
+    margin-top: 25px;
+}
+
 .login h1 {
     margin: 50px 0 25px 0;
 }
 
 .login-form {
     margin-top: 25px;
+    padding-bottom: 44px;
 }
 
 .login-form label {
@@ -540,8 +561,8 @@ form .select2-container--default .select2-selection--multiple .select2-selection
 
 .login-form a {
     color: white;
-    text-decoration: none;
-    padding: 24px 0 44px 0;
+    text-decoration: underline;
+    padding-top: 24px;
 }
 
 .login h2 {
@@ -568,11 +589,6 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     height: 38px;
     border-bottom: solid 1px white;
     margin: 0 25px;
-}
-
-.login a {
-    text-decoration: none;
-    margin-top: 25px;
 }
 
 .button-register {

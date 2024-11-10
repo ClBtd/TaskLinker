@@ -30,6 +30,7 @@ class RegistrationController extends AbstractController
         $employee = new Employee();
         $employee->setStatus(EmployeeStatus::CDI);
         $employee->setStartedAt(new DateTimeImmutable());
+        $employee->setRoles(['ROLE_USER']);
         $form = $this->createForm(RegistrationType::class, $employee);
         $form->handleRequest($request);
         
@@ -45,7 +46,7 @@ class RegistrationController extends AbstractController
             $em->persist($employee);
             $em->flush();
 
-            return $this->redirectToRoute('');
+            return $this->redirectToRoute('app_login');
         }
 
         return $this->render('registration/new.html.twig', [

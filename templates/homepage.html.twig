@@ -23,7 +23,9 @@
         </nav>
         <main>
            <header>
-              <div id="current-user"></div>
+              <div id="current-user">
+                  <a href="{{ path('app_logout') }}">{{ app.user.firstName|slice(0, 1) }}{{ app.user.lastName|slice(0, 1) }}</a>
+               </div>
               <div id="title-page">
                 {% block titlePage %}{% endblock %}
               </div>
