@@ -7,6 +7,7 @@ use App\Entity\Project;
 use App\Enum\EmployeeStatus;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\EnumType;
@@ -35,6 +36,14 @@ class EmployeeType extends AbstractType
             ->add('status', EnumType::class, [
                 'class'  => EmployeeStatus::class,
                 'label' => 'Statut',
+            ])
+            ->add('roles', ChoiceType::class, [
+                'label' => 'Rôle',
+                'choices'  => [
+                    'Chef de projet' => 'ROLE_ADMIN',
+                    'Employé' => 'ROLE_USER'
+                ],
+                'multiple' => true
             ])
         ;
     }

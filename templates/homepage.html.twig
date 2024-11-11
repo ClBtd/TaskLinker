@@ -14,11 +14,13 @@
                  <i class="fa-solid fa-list-check"></i> Projets
                  </a>
               </li>
+              {% if 'ROLE_ADMIN' in app.user.roles %}
               <li class="{{app.current_route == 'app_employee' ? 'active' : ''}}">
                  <a href="{{url('app_employee')}}">
                  <i class="fa-regular fa-user"></i> Équipe
                  </a>
               </li>
+              {% endif %}
            </ul>
         </nav>
         <main>

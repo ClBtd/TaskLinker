@@ -12,13 +12,16 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 
-#[IsGranted('ROLE_ADMIN')]
 #[Route('/employee', name: 'app_employee')]
 class EmployeeController extends AbstractController
 {
     #[Route('/', name: '')]
     public function index(EmployeeRepository $repository): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+    
         $employees = $repository->findAll();
 
         return $this->render('employee/index.html.twig', [
@@ -29,6 +32,10 @@ class EmployeeController extends AbstractController
     #[Route('/{id}/edit', name: '_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Employee $employee, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         $form = $this->createForm(EmployeeType::class, $employee);
         $form->handleRequest($request);
         
@@ -47,6 +54,10 @@ class EmployeeController extends AbstractController
     #[Route('/{id}/delete', name: '_delete', requirements: ['id' => '\d+'])]
     public function delete(Employee $employee, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         foreach ($employee->getProjects() as $project) {
             $project->removeEmployee($employee);
         } 

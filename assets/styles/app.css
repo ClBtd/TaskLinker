@@ -253,7 +253,7 @@ div#tasks-container {
     margin-left: 18px;
 }
 
-a.task {
+.task {
     display: flex;
     min-height: 91px;
     text-decoration: none;
@@ -265,14 +265,14 @@ a.task {
     margin-bottom: 10px;
 }
 
-a.task h3 {
+.task h3 {
     font-size: 14px;
     font-weight: 600;
     line-height: 24px;
     margin: 0;
 }
 
-a.task p {
+.task p {
     font-size: 12px;
     line-height: 24px;
     color: #5C5C5C;
@@ -595,6 +595,10 @@ form .select2-container--default .select2-selection--multiple .select2-selection
     margin-bottom: 75px;
     padding: 35px 78px;
     border: none;
+}
+
+.error {
+    padding: 50px;
 }
 
 

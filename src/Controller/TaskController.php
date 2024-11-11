@@ -20,6 +20,10 @@ class TaskController extends AbstractController
     #[Route('/{id}/edit', name: '_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Task $task, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         $form = $this->createForm(TaskType::class, $task);
         $form->handleRequest($request);
         
@@ -38,6 +42,10 @@ class TaskController extends AbstractController
     #[Route('/{id}/{status}/new', name: '_new', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function new(string $status, Project $project, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         $task = new Task();
         $task->setStatus(TaskStatus::from($status));
         $task->setProject($project);
@@ -65,6 +73,10 @@ class TaskController extends AbstractController
     #[Route('/{id}/delete', name: '_delete', requirements: ['id' => '\d+'])]
     public function delete(Task $task, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         if ($task->getEmployee()) {
             $task->getProject()->removeEmployee($task->getEmployee());
         }

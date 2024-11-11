@@ -40,6 +40,10 @@ class ProjectController extends AbstractController
     #[Route('/{id}/edit', name: '_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(?Project $project, Request $request, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         $project ??= new Project();
         $form = $this->createForm(ProjectType::class, $project);
         $form->handleRequest($request);
@@ -60,11 +64,21 @@ class ProjectController extends AbstractController
     #[Route('/{id}/archive', name: '_archive', requirements: ['id' => '\d+'])]
     public function archive(Project $project, EntityManagerInterface $em): Response
     {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->redirectToRoute('app_project_not_allowed'); 
+        }
+
         $project->setArchive(true);
         foreach ($project->getTasks() as $task) {
             $project->removeTask($task);
         }
         $em->flush();
         return $this->redirectToRoute('app_project');
+    }
+
+    #[Route('/projet/acces', name: '_not_allowed')]
+    public function redirect_unallowed_user(): Response
+    {
+        return $this->render('project/acces.html.twig');
     }
 }

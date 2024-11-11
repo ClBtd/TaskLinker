@@ -23,26 +23,36 @@
             <div class="tasks-list">
                 {% for task in project.tasks %}
                     {% if task.status.value == 'toDo' %}
-                        <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
-                            <h3>{{task.name}}</h3>
-                            <p>{{task.description}}</p>
-                            <div class="task-infos">
-                                <div class="task-deadline">
-                                    <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
-                                </div>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                        {% else %}
+                            <div class="task">
+                        {% endif %}
+                                <h3>{{task.name}}</h3>
+                                <p>{{task.description}}</p>
+                                <div class="task-infos">
+                                    <div class="task-deadline">
+                                        <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                    </div>
                                 {% if task.employee %}
                                     <div class="mini-user">
                                         {{task.employee.firstName|slice(0, 1)}}
                                         {{task.employee.lastName|slice(0, 1)}}
                                     </div>
                                 {% endif %}
+                                </div>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            </a>
+                        {% else %}
                             </div>
-                        </a>
+                        {% endif %}
                     {% endif %}
-                {% endfor %}        
+                {% endfor %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}        
                 <a href="{{ path('app_task_new', {id: project.id, status: 'toDo'}) }}" class="task-add">
                     + Ajouter une tâche
                 </a>
+                {% endif %}
             </div>
         </div>
         <div class="task-column">        
@@ -50,39 +60,14 @@
             <div class="tasks-list">
                 {% for task in project.tasks %}
                     {% if task.status.value == 'doing' %}
-                        <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
-                            <h3>{{task.name}}</h3>
-                            <p>{{task.description}}</p>
-                            <div class="task-infos">
-                                <div class="task-deadline">
-                                    {% if task.deadline %}
-                                    <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
-                                    {% endif %}
-                                </div>
-                                {% if task.employee %}
-                                    <div class="mini-user">
-                                        {{task.employee.firstName|slice(0, 1)}}
-                                        {{task.employee.lastName|slice(0, 1)}}
-                                    </div>
-                                {% endif %}
-                            </div>
-                        </a>
-                    {% endif %}
-                {% endfor %}        
-                <a href="{{ path('app_task_new', {id: project.id, status: 'doing'}) }}" class="task-add">
-                    + Ajouter une tâche
-                </a>
-            </div>
-        </div>
-        <div class="task-column">        
-            <h2>Done</h2>
-              <div class="tasks-list">
-                  {% for task in project.tasks %}
-                      {% if task.status.value == 'done' %}
-                          <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
-                              <h3>{{task.name}}</h3>
-                              <p>{{task.description}}</p>
-                              <div class="task-infos">
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                        {% else %}
+                            <div class="task">
+                        {% endif %}
+                                <h3>{{task.name}}</h3>
+                                <p>{{task.description}}</p>
+                                <div class="task-infos">
                                     <div class="task-deadline">
                                         <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
                                     </div>
@@ -92,13 +77,56 @@
                                             {{task.employee.lastName|slice(0, 1)}}
                                         </div>
                                     {% endif %}
-                              </div>
-                          </a>
+                                </div>
+                        {% if 'ROLE_ADMIN' in app.user.roles %}
+                            </a>
+                        {% else %}
+                            </div>
                         {% endif %}
-                    {% endfor %}        
+                    {% endif %}
+                {% endfor %}
+                {% if 'ROLE_ADMIN' in app.user.roles %}        
+                <a href="{{ path('app_task_new', {id: project.id, status: 'doing'}) }}" class="task-add">
+                    + Ajouter une tâche
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div class="task-column">        
+            <h2>Done</h2>
+              <div class="tasks-list">
+                  {% for task in project.tasks %}
+                        {% if task.status.value == 'done' %}
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                <a class="task" href="{{ path('app_task_edit', {id: task.id}) }}">
+                            {% else %}
+                                <div class="task">
+                            {% endif %}
+                                  <h3>{{task.name}}</h3>
+                                  <p>{{task.description}}</p>
+                                  <div class="task-infos">
+                                        <div class="task-deadline">
+                                            <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                        </div>
+                                        {% if task.employee %}
+                                            <div class="mini-user">
+                                                {{task.employee.firstName|slice(0, 1)}}
+                                                {{task.employee.lastName|slice(0, 1)}}
+                                            </div>
+                                        {% endif %}
+                                  </div>
+                            {% if 'ROLE_ADMIN' in app.user.roles %}
+                                </a>
+                            {% else %}
+                                </div>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if 'ROLE_ADMIN' in app.user.roles %}        
                     <a href="{{ path('app_task_new', {id: project.id, status: 'done'}) }}" class="task-add">
                         + Ajouter une tâche
                     </a>
+                    {% endif %}
                 </div>
           </div>
     </div>
