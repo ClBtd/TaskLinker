@@ -31,9 +31,11 @@
                                 <h3>{{task.name}}</h3>
                                 <p>{{task.description}}</p>
                                 <div class="task-infos">
-                                    <div class="task-deadline">
-                                        <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
-                                    </div>
+                                    {% if task.deadline %}
+                                        <div class="task-deadline">
+                                            <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                        </div>
+                                    {% endif %}
                                 {% if task.employee %}
                                     <div class="mini-user">
                                         {{task.employee.firstName|slice(0, 1)}}
@@ -68,9 +70,11 @@
                                 <h3>{{task.name}}</h3>
                                 <p>{{task.description}}</p>
                                 <div class="task-infos">
-                                    <div class="task-deadline">
-                                        <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
-                                    </div>
+                                    {% if task.deadline %}
+                                        <div class="task-deadline">
+                                            <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                        </div>
+                                    {% endif %}
                                     {% if task.employee %}
                                         <div class="mini-user">
                                             {{task.employee.firstName|slice(0, 1)}}
@@ -105,9 +109,11 @@
                                   <h3>{{task.name}}</h3>
                                   <p>{{task.description}}</p>
                                   <div class="task-infos">
-                                        <div class="task-deadline">
-                                            <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
-                                        </div>
+                                        {% if task.deadline %}
+                                            <div class="task-deadline">
+                                                <i class="fa-regular fa-calendar"></i> {{task.deadline|date('d M Y')}}
+                                            </div>
+                                        {% endif %}
                                         {% if task.employee %}
                                             <div class="mini-user">
                                                 {{task.employee.firstName|slice(0, 1)}}

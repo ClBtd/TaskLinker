@@ -41,13 +41,13 @@ class ProjectRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?Project
-    //    {
-    //        return $this->createQueryBuilder('p')
-    //            ->andWhere('p.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+    public function findByEmployee($employee): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere(':employee MEMBER OF p.employee')
+            ->setParameter('employee', $employee)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 }

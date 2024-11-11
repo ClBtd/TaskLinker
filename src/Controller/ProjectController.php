@@ -21,7 +21,13 @@ class ProjectController extends AbstractController
     #[Route('/', name: '')]
     public function index(ProjectRepository $repository): Response
     {
-        $activeProjects = $repository->findActiveProjects();
+        if ($this->isGranted('ROLE_ADMIN')) {
+            $activeProjects = $repository->findActiveProjects();
+        }
+        
+        else {
+            $activeProjects = $repository->findByEmployee($this->getUser());
+        }
 
         return $this->render('project/index.html.twig', [
            'projects' => $activeProjects 
@@ -31,6 +37,12 @@ class ProjectController extends AbstractController
     #[Route('/{id}', name: '_show', requirements: ['id' => '\d+'], methods: ['GET'])]
     public function show(Project $project): Response
     {
+        $user= $this->getUser();
+
+        if (!$project->getEmployee()->contains($user) && !$this->isGranted('ROLE_ADMIN'))  {
+            return $this->redirectToRoute('app_project_acces'); 
+        }
+
         return $this->render('project/show.html.twig', [
             'project' => $project,
         ]);
@@ -76,9 +88,16 @@ class ProjectController extends AbstractController
         return $this->redirectToRoute('app_project');
     }
 
-    #[Route('/projet/acces', name: '_not_allowed')]
+    #[Route('/projet/not_allowed', name: '_not_allowed')]
     public function redirect_unallowed_user(): Response
+    {
+        return $this->render('project/not_allowed.html.twig');
+    }
+
+    #[Route('/projet/acces', name: '_acces')]
+    public function unallowed_project(): Response
     {
         return $this->render('project/acces.html.twig');
     }
+
 }

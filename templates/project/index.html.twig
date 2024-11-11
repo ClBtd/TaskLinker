@@ -10,6 +10,9 @@
 
 <div id="content">
     <div id="projects-container">
+        {% if project is not defined %}
+            <p>Vous n'avez aucun projet en cours.</p>
+        {% endif %}
         {% for project in projects %}
             <article class="card-project">
                 <a href="{{ path('app_project_show', {id: project.id}) }}">
