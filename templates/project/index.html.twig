@@ -10,7 +10,7 @@
 
 <div id="content">
     <div id="projects-container">
-        {% if project is not defined %}
+        {% if projects is empty %}
             <p>Vous n'avez aucun projet en cours.</p>
         {% endif %}
         {% for project in projects %}
